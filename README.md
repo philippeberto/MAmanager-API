@@ -1,6 +1,6 @@
-- Projeto de um sistema de gestão para uma academia de artes marciais
+- Projeto de uma API para um sistema de gestão de uma academia de artes marciais
 
-\*\* Requisitos Funcionais
+Requisitos Funcionais:
 
 - Operaçoes de CRUD para Alunos
 - Operaçoes de CRUD para Mensalidades
@@ -8,10 +8,7 @@
 - Operaçoes de CRUD para Compras
 - Operaçoes de CRUD para Despesas
 
-Painel inicial com as seguintes informações:
+Tecnologias
 
-- Total de mensalidades por período (Mês atual)
-- Total de vendas por período (Mês atual)
-- Total de despesas por período (Mês atual)
-- Total de compras por período (Mês atual)
-- Resumo do saldo: Mensalidades + Vendas - Compras - Despesas = Saldo
+Foi utilizado Javascript e Node.js com o Express e o Apollo Server (Express) para
+a criação de uma API no padrão GraphQL.
