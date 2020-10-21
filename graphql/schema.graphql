@@ -1,0 +1,106 @@
+type Query {
+  findAllAlunos: [Aluno]
+  findAluno(id: String): Aluno
+  findAllMensalidades: [Mensalidade]
+  findAllDespesas: [Despesa]
+  findAllVendas: [Venda]
+}
+
+type Mutation {
+  createAluno(input: AlunoInput): Aluno
+  removeAluno(id: String): Boolean
+  updateAluno(id: String, input: AlunoInputUpdate): Aluno
+  createMensalidade(input: MensalidadeInput): Boolean
+  createDespesa(input: DespesaInput): Despesa
+  createVenda(input: VendaInput): Venda
+}
+
+type Aluno {
+  id: String
+  aluno: String
+  phone: String
+  birthDate: String
+  parent: String
+  parentPhone: String
+  address: String
+  location: String
+  registrationDate: String
+  dueDate: String
+  urlImage: String
+  gender: String
+  degree: String
+}
+
+type Despesa {
+  id: String
+  description: String
+  price: Float
+  dueDate: String
+  referenceMonth: String
+  paymentDate: String
+  paid: Boolean
+}
+
+type Mensalidade {
+  id: String
+  idAluno: String
+  price: Float
+  paymentDate: String
+  monthPaid: String
+}
+
+type Venda {
+  id: String
+  description: String
+  idAluno: String
+  price: Float
+  date: String
+}
+input VendaInput {
+  description: String!
+  idAluno: String
+  price: Float!
+  date: String!
+}
+
+input AlunoInput {
+  aluno: String!
+  phone: String!
+  birthDate: String!
+  parent: String
+  parentPhone: String
+  address: String
+  location: String!
+  dueDate: String!
+  gender: String!
+  degree: String
+}
+input AlunoInputUpdate {
+  aluno: String!
+  phone: String
+  birthDate: String!
+  parent: String
+  parentPhone: String
+  address: String
+  location: String!
+  registrationDate: String
+  dueDate: String!
+  urlImage: String
+  gender: String!
+  degree: String
+}
+
+input MensalidadeInput {
+  idAluno: String!
+  price: Float!
+  paymentDate: String!
+  monthPaid: String!
+}
+input DespesaInput {
+  description: String
+  price: Float
+  dueDate: String
+  referenceMonth: String
+  paymentDate: String
+  paid: Boolean
+}
