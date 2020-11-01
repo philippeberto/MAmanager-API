@@ -1,7 +1,7 @@
 const db = require('../../firestore/index')
 
-const findAllDespesas = async () => {
-  const despesasDB = await db.collection('despesas').get()
+const findAllDespesas = async (parent, { user }) => {
+  const despesasDB = await db.collection(user).doc('Data').collection('Despesas').get()
   if (despesasDB.empty) {
     return []
   } else {
@@ -16,9 +16,9 @@ const findAllDespesas = async () => {
   }
 }
 
-const createDespesa = async (parent, { input }) => {
+const createDespesa = async (parent, { user, input }) => {
   console.log(input)
-  const doc = db.collection('despesas').doc()
+  const doc = db.collection(user).doc('Data').collection('Despesas').doc()
   await doc.set(input)
   const id = doc.id
   return { id, ...input }

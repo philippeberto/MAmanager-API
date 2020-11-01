@@ -1,18 +1,20 @@
 type Query {
-  findAllAlunos: [Aluno]
+  findAllAlunos(user: String): [Aluno]
   findAluno(id: String): Aluno
-  findAllMensalidades: [Mensalidade]
-  findAllDespesas: [Despesa]
-  findAllVendas: [Venda]
+  findAllMensalidades(user: String): [Mensalidade]
+  findAllDespesas(user: String): [Despesa]
+  findAllVendas(user: String): [Venda]
+  findAllCompras(user: String): [Compra]
 }
 
 type Mutation {
-  createAluno(input: AlunoInput): Aluno
+  createAluno(user: String, input: AlunoInput): Aluno
   removeAluno(id: String): Boolean
   updateAluno(id: String, input: AlunoInputUpdate): Aluno
-  createMensalidade(input: MensalidadeInput): Boolean
-  createDespesa(input: DespesaInput): Despesa
-  createVenda(input: VendaInput): Venda
+  createMensalidade(user: String, input: MensalidadeInput): Boolean
+  createDespesa(user: String, input: DespesaInput): Despesa
+  createVenda(user: String, input: VendaInput): Venda
+  createCompra(user: String, input: CompraInput): Compra
 }
 
 type Aluno {
@@ -56,6 +58,14 @@ type Venda {
   price: Float
   date: String
 }
+
+type Compra {
+  id: String
+  description: String
+  price: Float
+  date: String
+}
+
 input VendaInput {
   description: String!
   idAluno: String
@@ -103,4 +113,10 @@ input DespesaInput {
   referenceMonth: String
   paymentDate: String
   paid: Boolean
+}
+
+input CompraInput {
+  description: String!
+  price: Float!
+  date: String!
 }

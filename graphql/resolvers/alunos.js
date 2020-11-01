@@ -2,8 +2,8 @@ const db = require('../../firestore/index')
 const { doc } = require('../../firestore/index')
 
 
-const findAllAlunos = async (parent, { filter }, context) => {
-  const alunosDB = await db.collection('Alunos').get()
+const findAllAlunos = async (parent, { user }) => {
+  const alunosDB = await db.collection(user).doc('Data').collection('Alunos').get()
   if (alunosDB.empty) {
     return []
   } else {
@@ -18,26 +18,26 @@ const findAllAlunos = async (parent, { filter }, context) => {
   }
 }
 
-const findAluno = async (context, { id }) => {
+const findAluno = async (parent, { id }) => {
   const doc = await db.collection('Alunos').doc(id).get()
   const aluno = { id, ...doc.data() }
   return aluno
 }
 
-const createAluno = async (context, { input }) => {
-  const doc = db.collection('Alunos').doc()
+const createAluno = async (parent, { user, input }) => {
+  const doc = db.collection(user).doc('Data').collection('Alunos').doc()
   await doc.set(input)
   const id = doc.id
   return { id, ...input }
 }
 
-const removeAluno = async (context, { id }) => {
+const removeAluno = async (parent, { id }) => {
   const doc = db.collection('Alunos').doc(id)
   await doc.delete()
   return true
 }
 
-const updateAluno = async (context, { id, input }) => {
+const updateAluno = async (parent, { id, input }) => {
   const doc = db.collection('Alunos').doc(id)
   await doc.update(input)
   const newDoc = await doc.get()
