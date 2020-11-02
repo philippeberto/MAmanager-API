@@ -5,6 +5,7 @@ type Query {
   findAllDespesas(user: String): [Despesa]
   findAllVendas(user: String): [Venda]
   findAllCompras(user: String): [Compra]
+  findAllSeguros(user: String): [Seguro]
 }
 
 type Mutation {
@@ -15,6 +16,7 @@ type Mutation {
   createDespesa(user: String, input: DespesaInput): Despesa
   createVenda(user: String, input: VendaInput): Venda
   createCompra(user: String, input: CompraInput): Compra
+  createSeguro(user: String, input: SeguroInput): Seguro
 }
 
 type Aluno {
@@ -64,6 +66,15 @@ type Compra {
   description: String
   price: Float
   date: String
+}
+
+type Seguro {
+  id: String
+  idAluno: String
+  idate: String
+  fdate: String
+  price: Float
+  status: Boolean
 }
 
 input VendaInput {
@@ -119,4 +130,11 @@ input CompraInput {
   description: String!
   price: Float!
   date: String!
+}
+input SeguroInput {
+  idAluno: String
+  idate: String
+  fdate: String
+  price: Float
+  status: Boolean
 }

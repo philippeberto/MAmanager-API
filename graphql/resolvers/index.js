@@ -11,6 +11,7 @@ const { findAllMensalidades, createMensalidade } = require('./mensalidades')
 const { findAllDespesas, createDespesa } = require('./despesas')
 const { findAllVendas, createVenda } = require('./vendas')
 const { findAllCompras, createCompra } = require('./compras')
+const { findAllSeguros, createSeguro } = require('./seguros')
 
 const needsAuth = (resolver) => {
   return async (parent, args, context) => {
@@ -29,6 +30,7 @@ const resolvers = {
     findAllDespesas: needsAuth(findAllDespesas),
     findAllVendas: needsAuth(findAllVendas),
     findAllCompras: needsAuth(findAllCompras),
+    findAllSeguros: needsAuth(findAllSeguros),
   },
   Mutation: {
     createAluno: needsAuth(createAluno),
@@ -38,6 +40,7 @@ const resolvers = {
     createDespesa: needsAuth(createDespesa),
     createVenda: needsAuth(createVenda),
     createCompra: needsAuth(createCompra),
+    createSeguro: needsAuth(createSeguro),
   },
 }
 
