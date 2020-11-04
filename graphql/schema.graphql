@@ -26,12 +26,12 @@ type Aluno {
   id: String
   aluno: String
   phone: String
-  birthDate: Date
+  birthDate: String
   parent: String
   parentPhone: String
   address: String
   location: String
-  registrationDate: Date
+  registrationDate: String
   dueDate: String
   urlImage: String
   gender: String
@@ -75,8 +75,8 @@ type Compra {
 type Seguro {
   id: String
   idAluno: String
-  idate: Date
-  fdate: Date
+  idate: String
+  fdate: String
   price: Float
   status: Boolean
 }
@@ -85,13 +85,13 @@ input VendaInput {
   description: String!
   idAluno: String
   price: Float!
-  date: Date!
+  date: String!
 }
 
 input AlunoInput {
   aluno: String!
   phone: String!
-  birthDate: Date!
+  birthDate: String!
   parent: String
   parentPhone: String
   address: String
