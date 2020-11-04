@@ -1,3 +1,5 @@
+scalar Date
+
 type Query {
   findAllAlunos(user: String): [Aluno]
   findAluno(id: String): Aluno
@@ -6,6 +8,7 @@ type Query {
   findAllVendas(user: String): [Venda]
   findAllCompras(user: String): [Compra]
   findAllSeguros(user: String): [Seguro]
+  findAllDespesasByDate(user: String): [Despesa]
 }
 
 type Mutation {
@@ -23,12 +26,12 @@ type Aluno {
   id: String
   aluno: String
   phone: String
-  birthDate: String
+  birthDate: Date
   parent: String
   parentPhone: String
   address: String
   location: String
-  registrationDate: String
+  registrationDate: Date
   dueDate: String
   urlImage: String
   gender: String
@@ -43,6 +46,7 @@ type Despesa {
   referenceMonth: String
   paymentDate: String
   paid: Boolean
+  createdAt: String
 }
 
 type Mensalidade {
@@ -71,8 +75,8 @@ type Compra {
 type Seguro {
   id: String
   idAluno: String
-  idate: String
-  fdate: String
+  idate: Date
+  fdate: Date
   price: Float
   status: Boolean
 }
@@ -81,13 +85,13 @@ input VendaInput {
   description: String!
   idAluno: String
   price: Float!
-  date: String!
+  date: Date!
 }
 
 input AlunoInput {
   aluno: String!
   phone: String!
-  birthDate: String!
+  birthDate: Date!
   parent: String
   parentPhone: String
   address: String
@@ -104,7 +108,6 @@ input AlunoInputUpdate {
   parentPhone: String
   address: String
   location: String!
-  registrationDate: String
   dueDate: String!
   urlImage: String
   gender: String!
@@ -124,6 +127,7 @@ input DespesaInput {
   referenceMonth: String
   paymentDate: String
   paid: Boolean
+  createdAt: String
 }
 
 input CompraInput {
