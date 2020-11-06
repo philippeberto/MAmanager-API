@@ -1,6 +1,8 @@
 const { AuthenticationError } = require('apollo-server-express')
 const { GraphQLScalarType } = require('graphql');
 const { Kind } = require('graphql/language');
+const { firestore } = require('firebase-admin')
+
 
 const {
   findAllAlunos,
@@ -50,15 +52,16 @@ const resolvers = {
     name: 'Date',
     description: 'Date custom scalar type',
     parseValue(value) {
-      return moment(value); // value from the client
+      const date = new Date(value)
+      return firestore.Timestamp.fromDate(date) // value from the client
     },
     serialize(value) {
-      console.log(value)
-      return moment(value).format("DD/MM/YYYY"); // value sent to the client
+      return new firestore.Timestamp(value._seconds, value._nanoseconds).toDate(); // value sent to the client
     },
     parseLiteral(ast) {
       if (ast.kind === Kind.STRING) {
-        return moment(+ast.value) // ast value is always in string format
+        date = new Date(ast.value)
+        return firestore.Timestamp.fromDate(date) // ast value is always in string format
       }
       return null;
     },

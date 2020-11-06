@@ -1,4 +1,6 @@
 const db = require('../../firestore/index')
+const moment = require('moment')
+const { firestore } = require('firebase-admin')
 
 const findAllDespesas = async (parent, { user }) => {
   const despesasDB = await db.collection(user).doc('Data').collection('Despesas').get()
@@ -16,36 +18,37 @@ const findAllDespesas = async (parent, { user }) => {
   }
 }
 
-const findAllDespesasByDate = async (parent, { user, dates }) => {
-  try {
-    const despesasDB = db.collection(user).doc('Data').collection('Despesas')
-      .where('date', '>=', dates.idate)
-      .where('date', '<=', dates.fdate)
-      .get();
-    if (despesasDB.empty) {
-      console.log('No matching documents.');
-      return [];
-    } else {
-      const despesas = []
-      despesasDB.forEach((doc) => {
-        despesas.push({
+const findAllDespesasByDate = async (parent, { user, date }) => {
+  const d = new Date(date + 'T00:00:00')
+  const ftimestamp = firestore.Timestamp.fromDate(d)
+  console.log(d)
+  console.log(ftimestamp)
+
+  let despesas = db.collection(user).doc('Data').collection('Despesas')
+  let query = despesas.where('dueDate', '>=', ftimestamp).get()
+    .then(snapshot => {
+      if (snapshot.empty) {
+        console.log('No matching documents.');
+        return [];
+      }
+      const resultado = []
+      snapshot.forEach(doc => {
+        resultado.push({
           ...doc.data(),
-          id: doc.id,
+          id: doc.id
         })
       })
-      return despesas
-    }
-  } catch (err) {
-    console.log('Error getting documents', err);
-    return []
-  }
+      return resultado
+    })
+    .catch(err => {
+      console.log('Error getting documents', err);
+    });
+  return query
 }
 
 const createDespesa = async (parent, { user, input }) => {
-  console.log(input)
   const doc = db.collection(user).doc('Data').collection('Despesas').doc()
   await doc.set(input)
-  // await doc.set({ createdAt: new Date() })
   const id = doc.id
   return { id, ...input }
 }

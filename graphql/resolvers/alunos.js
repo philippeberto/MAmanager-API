@@ -18,8 +18,8 @@ const findAllAlunos = async (parent, { user }) => {
   }
 }
 
-const findAluno = async (parent, { id }) => {
-  const doc = await db.collection('Alunos').doc(id).get()
+const findAluno = async (parent, { user, id }) => {
+  const doc = await db.collection(user).doc('Data').collection('Alunos').doc(id).get()
   const aluno = { id, ...doc.data() }
   return aluno
 }

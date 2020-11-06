@@ -2,13 +2,13 @@ scalar Date
 
 type Query {
   findAllAlunos(user: String): [Aluno]
-  findAluno(id: String): Aluno
+  findAluno(user: String, id: String): Aluno
   findAllMensalidades(user: String): [Mensalidade]
   findAllDespesas(user: String): [Despesa]
   findAllVendas(user: String): [Venda]
   findAllCompras(user: String): [Compra]
   findAllSeguros(user: String): [Seguro]
-  findAllDespesasByDate(user: String): [Despesa]
+  findAllDespesasByDate(user: String, date: String): [Despesa]
 }
 
 type Mutation {
@@ -42,11 +42,11 @@ type Despesa {
   id: String
   description: String
   price: Float
-  dueDate: String
+  dueDate: Date
   referenceMonth: String
-  paymentDate: String
+  paymentDate: Date
   paid: Boolean
-  createdAt: String
+  createdAt: Date
 }
 
 type Mensalidade {
@@ -123,11 +123,11 @@ input MensalidadeInput {
 input DespesaInput {
   description: String
   price: Float
-  dueDate: String
+  dueDate: Date
   referenceMonth: String
-  paymentDate: String
+  paymentDate: Date
   paid: Boolean
-  createdAt: String
+  createdAt: Date
 }
 
 input CompraInput {
