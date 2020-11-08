@@ -24,7 +24,24 @@ const createCompra = async (parent, { user, input }) => {
   return { id, ...input }
 }
 
+const somaComprasByPeriod = async (parent, { user, input }) => {
+  let total = 0
+  const mensalidadesDB = await db.collection(user).doc('Data').collection('Compras')
+    .where('date', '>=', input.idate)
+    .where('date', '<=', input.fdate)
+    .get()
+  if (mensalidadesDB.empty) {
+    return total
+  } else {
+
+    mensalidadesDB.forEach(doc => {
+      total += parseInt(doc._fieldsProto.price.integerValue)
+    })
+    return total
+  }
+}
 module.exports = {
   findAllCompras,
   createCompra,
+  somaComprasByPeriod
 }

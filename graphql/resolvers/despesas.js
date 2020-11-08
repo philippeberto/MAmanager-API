@@ -1,5 +1,4 @@
 const db = require('../../firestore/index')
-const moment = require('moment')
 const { firestore } = require('firebase-admin')
 
 const findAllDespesas = async (parent, { user }) => {
@@ -53,8 +52,26 @@ const createDespesa = async (parent, { user, input }) => {
   return { id, ...input }
 }
 
+const somaDespesasByPeriod = async (parent, { user, input }) => {
+  let total = 0
+  const mensalidadesDB = await db.collection(user).doc('Data').collection('Despesas')
+    .where('paymentDate', '>=', input.idate)
+    .where('paymentDate', '<=', input.fdate)
+    .get()
+  if (mensalidadesDB.empty) {
+    return total
+  } else {
+
+    mensalidadesDB.forEach(doc => {
+      total += parseInt(doc._fieldsProto.price.integerValue)
+    })
+    return total
+  }
+}
+
 module.exports = {
   findAllDespesas,
   createDespesa,
-  findAllDespesasByDate
+  findAllDespesasByDate,
+  somaDespesasByPeriod
 }

@@ -9,6 +9,10 @@ type Query {
   findAllCompras(user: String): [Compra]
   findAllSeguros(user: String): [Seguro]
   findAllDespesasByDate(user: String, date: String): [Despesa]
+  somaMensalidadesByPeriod(user: String, input: Period): Float
+  somaDespesasByPeriod(user: String, input: Period): Float
+  somaVendasByPeriod(user: String, input: Period): Float
+  somaComprasByPeriod(user: String, input: Period): Float
 }
 
 type Mutation {
@@ -26,16 +30,16 @@ type Aluno {
   id: String
   aluno: String
   phone: String
-  birthDate: String
+  birthDate: Date
   parent: String
   parentPhone: String
   address: String
   location: String
-  registrationDate: String
-  dueDate: String
+  createdAt: Date
+  dueDate: Int
   urlImage: String
   gender: String
-  degree: String
+  degree: Int
 }
 
 type Despesa {
@@ -53,8 +57,8 @@ type Mensalidade {
   id: String
   idAluno: String
   price: Float
-  paymentDate: String
-  monthPaid: String
+  paymentDate: Date
+  monthPaid: Int
 }
 
 type Venda {
@@ -62,83 +66,85 @@ type Venda {
   description: String
   idAluno: String
   price: Float
-  date: String
+  date: Date
 }
 
 type Compra {
   id: String
   description: String
   price: Float
-  date: String
+  date: Date
 }
 
 type Seguro {
   id: String
   idAluno: String
-  idate: String
-  fdate: String
+  idate: Date
+  fdate: Date
   price: Float
-  status: Boolean
 }
 
 input VendaInput {
   description: String!
   idAluno: String
   price: Float!
-  date: String!
+  date: Date!
 }
 
 input AlunoInput {
   aluno: String!
   phone: String!
-  birthDate: String!
+  birthDate: Date!
   parent: String
   parentPhone: String
   address: String
   location: String!
-  dueDate: String!
+  dueDate: Int!
   gender: String!
-  degree: String
+  degree: Int
 }
 input AlunoInputUpdate {
   aluno: String!
   phone: String
-  birthDate: String!
+  birthDate: Date!
   parent: String
   parentPhone: String
   address: String
   location: String!
-  dueDate: String!
+  dueDate: Int!
   urlImage: String
   gender: String!
-  degree: String
+  degree: Int
 }
 
 input MensalidadeInput {
   idAluno: String!
   price: Float!
-  paymentDate: String!
-  monthPaid: String!
+  paymentDate: Date!
+  monthPaid: Int!
 }
 input DespesaInput {
-  description: String
-  price: Float
+  description: String!
+  price: Float!
   dueDate: Date
-  referenceMonth: String
+  referenceMonth: Int
   paymentDate: Date
-  paid: Boolean
-  createdAt: Date
+  createdAt: Date!
 }
 
 input CompraInput {
   description: String!
   price: Float!
-  date: String!
+  date: Date!
 }
 input SeguroInput {
-  idAluno: String
-  idate: String
-  fdate: String
-  price: Float
-  status: Boolean
+  idAluno: String!
+  idate: Date!
+  fdate: Date!
+  price: Float!
+}
+
+input Period {
+  idate: Date!
+  fdate: Date!
 }

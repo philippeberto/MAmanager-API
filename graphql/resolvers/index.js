@@ -11,10 +11,10 @@ const {
   removeAluno,
   updateAluno,
 } = require('./alunos')
-const { findAllMensalidades, createMensalidade } = require('./mensalidades')
-const { findAllDespesas, createDespesa, findAllDespesasByDate } = require('./despesas')
-const { findAllVendas, createVenda } = require('./vendas')
-const { findAllCompras, createCompra } = require('./compras')
+const { findAllMensalidades, somaMensalidadesByPeriod, createMensalidade } = require('./mensalidades')
+const { findAllDespesas, createDespesa, findAllDespesasByDate, somaDespesasByPeriod } = require('./despesas')
+const { findAllVendas, createVenda, somaVendasByPeriod } = require('./vendas')
+const { findAllCompras, createCompra, somaComprasByPeriod } = require('./compras')
 const { findAllSeguros, createSeguro } = require('./seguros');
 const moment = require('moment');
 
@@ -37,6 +37,10 @@ const resolvers = {
     findAllVendas: needsAuth(findAllVendas),
     findAllCompras: needsAuth(findAllCompras),
     findAllSeguros: needsAuth(findAllSeguros),
+    somaMensalidadesByPeriod: needsAuth(somaMensalidadesByPeriod),
+    somaDespesasByPeriod: needsAuth(somaDespesasByPeriod),
+    somaVendasByPeriod: needsAuth(somaVendasByPeriod),
+    somaComprasByPeriod: needsAuth(somaComprasByPeriod),
   },
   Mutation: {
     createAluno: needsAuth(createAluno),
