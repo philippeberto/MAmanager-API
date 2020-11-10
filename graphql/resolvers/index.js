@@ -16,7 +16,6 @@ const { findAllDespesas, createDespesa, findAllDespesasByDate, somaDespesasByPer
 const { findAllVendas, createVenda, somaVendasByPeriod } = require('./vendas')
 const { findAllCompras, createCompra, somaComprasByPeriod } = require('./compras')
 const { findAllSeguros, createSeguro } = require('./seguros');
-const moment = require('moment');
 
 const needsAuth = (resolver) => {
   return async (parent, args, context) => {
