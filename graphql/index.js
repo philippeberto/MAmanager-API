@@ -3,6 +3,9 @@ const fs = require('fs')
 const path = require('path')
 const schema = fs.readFileSync(path.join(__dirname, './schema.graphql'))
 const jwt = require('jsonwebtoken')
+const dotenv = require('dotenv');
+dotenv.config();
+const key = process.env.SECRET
 
 const resolvers = require('./resolvers')
 const typeDefs = gql`${schema}`
@@ -14,7 +17,7 @@ const graphqlServer = new ApolloServer({
     if (req.headers && req.headers.authorization) {
       const header = req.headers.authorization
       const headerParts = header.split(' ')
-      const secret = 'hfjroStk$ncbuaFndk469ghn!T6kridu2u&485jyng'
+      const secret = key
       try {
         const payload = jwt.verify(headerParts[1], secret)
         return { client: payload.client }
