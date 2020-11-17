@@ -1,5 +1,4 @@
 const db = require('../../firestore/index')
-const { doc } = require('../../firestore/index')
 
 
 const findAllAlunos = async (parent, { user }) => {
