@@ -1,3 +1,5 @@
 node_modules/
 .env
-.firestore.json
+firestore.json
+privatekey_encode64
+.prettierrc
