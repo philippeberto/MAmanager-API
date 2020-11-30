@@ -33,7 +33,7 @@ const somaMensalidadesByPeriod = async (parent, { user, input }) => {
     return total
   } else {
     mensalidadesDB.forEach(doc => {
-      total += parseInt(doc._fieldsProto.price.integerValue)
+      total += parseInt(doc._fieldsProto.price.doubleValue)
     })
     return total
   }
