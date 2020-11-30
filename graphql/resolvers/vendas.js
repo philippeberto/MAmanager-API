@@ -34,7 +34,12 @@ const somaVendasByPeriod = async (parent, { user, input }) => {
   } else {
 
     mensalidadesDB.forEach(doc => {
-      total += parseInt(doc._fieldsProto.price.doubleValue)
+      if (doc._fieldsProto.price.integerValue) {
+        total += parseFloat(doc._fieldsProto.price.integerValue)
+      }
+      if (doc._fieldsProto.price.doubleValue) {
+        total += parseFloat(doc._fieldsProto.price.doubleValue)
+      }
     })
     return total
   }
